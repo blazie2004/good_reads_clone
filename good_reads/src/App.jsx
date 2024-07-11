@@ -1,13 +1,14 @@
 import { useState } from 'react'
 
 import './App.css'
-import Homes from 'Pages/Homes';
+import MainRoutes from './Routes/MainRoutes'
+
 function App() {
  
 
   return (
     <>
-    <Homes/>
+     <MainRoutes/>
       
     </>
   )
