@@ -10,6 +10,8 @@ export default function Navbar() {
     const authState=useSelector((state)=>state.auth);
     const dispartcher=useDispatch();
 
+    console.log(authState);
+
 
     const onlogout =()=>{
         dispartcher(logout());
@@ -26,8 +28,8 @@ export default function Navbar() {
             </div>
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">
-                    { localStorage.getItem("IsLoggedIn") && <li><Link>Shelfs</Link></li> }
-                    { localStorage.getItem("IsLoggedIn")&& <li><Link>{authState.username}</Link></li> }
+                    { localStorage.getItem("IsLoggedIn") && <li><Link to="/shelf">Shelfs</Link></li> }
+                    { localStorage.getItem("IsLoggedIn")&& <li><Link>{localStorage.getItem("username")}</Link></li> }
                     <li>
                         <details>
                             <summary>Options</summary>

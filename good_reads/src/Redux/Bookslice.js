@@ -23,7 +23,7 @@ export const getallbooks= createAsyncThunk("course/getallbooks",async ()=>{
 
     }
     catch(error){
-        console.log(error);
+        console.log(error); 
         toast.error("something went wrong");
 
     }
@@ -36,8 +36,12 @@ const Bookslice=createSlice({
     reducers:{
 
     },
-    extraReducers :(builder)=>{
-
+    extraReducers: (builder) => {
+        builder.addCase(getallbooks.fulfilled, (state, action) => {
+            if (action.payload?.data?.data) {
+                state.booklist = action.payload.data.data;
+            }
+        });
     }
 })
 

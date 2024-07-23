@@ -1,7 +1,10 @@
 // import BookImage from 'Assets/Images/book.jpg';
 import book from 'assets/Images/bookimage.jpg';
 import { BiUser } from 'react-icons/bi';
-export default function BookCard({ title, author, description }) {
+import { useNavigate } from 'react-router-dom';
+export default function BookCard({ title, author, description ,id}) {
+
+    const nav=useNavigate();
     return (
         <div className="mt-5 card card-side bg-gray-800 shadow-xl h-60 w-9/12 shadow-md">
             <figure className='h-full'>
@@ -26,7 +29,9 @@ export default function BookCard({ title, author, description }) {
                     </div>
 
                     <div className="card-actions justify-end">
-                        <button className="btn btn-primary">More Details</button>
+                        <button          onClick={()=>{
+                            nav(`/book/${id}`);
+                        }}     className="btn btn-primary">More Details</button>
                     </div>
                 </div>
 

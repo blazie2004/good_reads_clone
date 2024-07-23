@@ -8,14 +8,14 @@ import { useDispatch } from "react-redux";
 function Dashboard(){
     
     console.log("enterd dashboard");
-    const state=useSelector((state)=>state.book);
+    const bookstate=useSelector((state)=>state.book);
     const dispatch=useDispatch();
     
 
    async  function loadbooks(){
-        if(state.booklist.length==0){
+        if(bookstate.booklist.length==0){
             const response=await dispatch(getallbooks());
-            console.log(response);
+        
         }
     }
     useEffect(()=>{
@@ -25,12 +25,15 @@ function Dashboard(){
 
     },[])
     
-    console.log(state);
+    
     return (
         <>
        <Layout>
      
          <BookCard title={"book1"}/>
+          {bookstate.booklist.map((eachbook)=>{
+             return <BookCard  key={eachbook._id} author={eachbook.author} title={eachbook.title} description={eachbook.description} id={eachbook._id} />
+          })}
        
        </Layout>
        </>
