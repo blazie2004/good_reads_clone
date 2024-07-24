@@ -10,7 +10,7 @@ export default function Navbar() {
     const authState=useSelector((state)=>state.auth);
     const dispartcher=useDispatch();
 
-    console.log(authState);
+    
 
 
     const onlogout =()=>{

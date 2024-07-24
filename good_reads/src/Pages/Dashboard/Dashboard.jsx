@@ -1,43 +1,45 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Layout from "src/Layouts/Layout";
 import BookCard from "src/Components/BookCard";
 import { useEffect } from "react";
 import { getallbooks } from "src/Redux/Bookslice";
-import { useDispatch } from "react-redux";
 
-function Dashboard(){
-    
-    console.log("enterd dashboard");
-    const bookstate=useSelector((state)=>state.book);
-    const dispatch=useDispatch();
-    
+function Dashboard() {
+    console.log("entered dashboard");
+    const bookstate = useSelector((state) => state.book);
+    const dispatch = useDispatch();
 
-   async  function loadbooks(){
-        if(bookstate.booklist.length==0){
-            const response=await dispatch(getallbooks());
-        
+    async function loadbooks() {
+        if (bookstate.booklist.length === 0) {
+            await dispatch(getallbooks());
         }
     }
-    useEffect(()=>{
+
+    useEffect(() => {
         loadbooks();
-        
+    }, []);
 
+    console.log(bookstate.booklist);
 
-    },[])
-    
-    
     return (
         <>
-       <Layout>
-     
-         <BookCard title={"book1"}/>
-          {bookstate.booklist.map((eachbook)=>{
-             return <BookCard  key={eachbook._id} author={eachbook.author} title={eachbook.title} description={eachbook.description} id={eachbook._id} />
-          })}
-       
-       </Layout>
-       </>
-    )
-
+            <Layout>
+                <div>
+                {bookstate.booklist.map((eachbook) => {
+                    return (
+                        <BookCard
+                            key={eachbook._id}
+                            author={eachbook.author.name} // Accessing the name property of the author object
+                            title={eachbook.title}
+                            description={eachbook.description}
+                            id={eachbook._id}
+                        />
+                    );
+                })}
+                </div>
+            </Layout>
+        </>
+    );
 }
+
 export default Dashboard;
