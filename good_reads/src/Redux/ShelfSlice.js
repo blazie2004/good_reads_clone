@@ -31,6 +31,7 @@ const shelfSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getAllBookShelves.fulfilled, (state, action) => {
             if (action?.payload?.data?.data) {
+                console.log(action);
                 state.shelfList = action.payload.data.data;
             }
         });
