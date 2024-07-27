@@ -4,10 +4,17 @@ import { useEffect, useState } from "react";
 import { BiUser } from 'react-icons/bi';
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { getAllBookShelves } from "src/Redux/ShelfSlice";
+import { addBookToShelf } from "src/Redux/ShelfSlice";
 
 export default function BookDescription() {
+
+    const dispatch=useDispatch();
     const { id } = useParams();
     const [r, setR] = useState({});
+    const shelfState = useSelector((state) => state.shelf);
 
     async function downloadBookDetails(id) {
         const response = await axios.get(`http://localhost:3005/api/v1/books/${id}`);
@@ -19,6 +26,10 @@ export default function BookDescription() {
     useEffect(() => {
         downloadBookDetails(id);
     }, [id]);
+    useEffect(() => {
+        dispatch(getAllBookShelves());
+    }, []);
+
 
     console.log("r", r);
 
@@ -54,6 +65,17 @@ export default function BookDescription() {
                     <div className='text-xl'>
                         Publish Date: <span className='text-yellow-400'>{r.publishDate}</span>
                     </div>
+                    <details className="dropdown mb-32">
+                                <summary className="m-1 btn">Add to Shelf</summary>
+                                <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                    {shelfState.shelfList.length > 0 && shelfState.shelfList.map((shelf) => {
+                                        return <li onClick={async () => {
+                                            await dispatch(addBookToShelf({shelfName: shelf.name, bookId: id}));
+                                            await dispatch(getAllBookShelves());
+                                        }} className='text-white' key={shelf._id}><a>{shelf.name}</a></li>;
+                                    })}
+                                </ul>
+                    </details>
                 </div>
             </div>
         </Layout>

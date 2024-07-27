@@ -49,9 +49,13 @@ export default function Shelf() {
                 <div className='flex flex-col justify-start items-start'>
                     {shelfState.shelfList.length > 0 && shelfState.shelfList.map((shelf) => {
                         return (
-                            <div onClick={() => changeActiveShelf(shelf._id)} key={shelf._id} className='mt-3 mb-3'>
-                                <button className={`btn-${activeShelf === shelf._id ? 'primary' : 'warning'} px-2 py-1 text-2xl`}>{shelf.name}</button>
-                             </div>
+                            <div
+                                onClick={() => changeActiveShelf(shelf._id)}
+                                key={shelf._id}
+                                className={`mt-3 mb-3 ${activeShelf === shelf._id ? 'bg-primary text-white' : 'bg-warning text-black'} px-2 py-1 text-2xl cursor-pointer rounded`}
+                            >
+                                {shelf.name}
+                            </div>
                         );
                     })}
                 </div>
@@ -70,7 +74,7 @@ export default function Shelf() {
                                 {books.map(book => {
                                     return (
                                         <tr className='hover:bg-slate-700' key={book._id} onClick={() => {
-                                            navigate("/book/description", { state: { ...book } });
+                                            navigate(`/book/${book._id}`);
                                         }}>
                                             <td>
                                                 <div className="flex items-center space-x-3">

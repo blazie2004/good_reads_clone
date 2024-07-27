@@ -26,6 +26,7 @@ export default function Navbar() {
             <div className="flex-1">
                 <Link to="/dashboard" className="btn btn-success-content normal-case text-xl">BookShelf</Link>
             </div>
+          
             <div className="flex-none">
                 <ul className="menu menu-horizontal px-1">
                     { localStorage.getItem("IsLoggedIn") && <li><Link to="/shelf">Shelfs</Link></li> }
